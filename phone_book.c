@@ -184,9 +184,9 @@ void write_all_entries(entry * p) {
 
 
 void add(char *name, char *phone) {
-  FILE *fp = fopen(DB, "a");
-  fprintf(fp, "%s,%s\n", name, phone);
-  fclose(fp);
+ FILE *fp = fopen(DB, "a");
+ fprintf(fp, "%s,%s\n", name, phone);
+ fclose(fp);
 }
 
 void list(FILE *db_file) {
@@ -217,28 +217,29 @@ int search(FILE *db_file, char *name)
 }
 
 int delete(FILE *db_file, char *name) {
-  entry *p = load_entries(db_file);
-  entry *base = p;
-  entry *prev = NULL;
-  entry *del = NULL ; /* Node to be deleted */
-  int deleted = 0;
-  while (p!=NULL) {
-    if (strcmp(p->name, name) == 0) {
-      /* Matching node found. Delete it from the linked list.
-         Deletion from a linked list like this
-   
-             p0 -> p1 -> p2
-         
-         means we have to make p0->next point directly to p2. The p1
-         "node" is removed and free'd.
-         
-         If the node to be deleted is p0, it's a special case. 
-      */
-
-      /* TBD */
-    }
-  }
-  write_all_entries(base);
-  free_entries(base);
-  return deleted;
+ entry *p = load_entries(db_file);
+ entry *base = p;
+ entry *prev = NULL;
+ entry *del = NULL ; /* Node to be deleted */
+ int deleted = 0;
+ while (p!=NULL) {
+ if (strcmp(p->name, name) == 0) {
+ if(p==base){
+ base=p->next;
+ free(p);
+ deleted++;
+ break;
+ }
+ prev->next=p->next;
+ free(p) ;
+ deleted++;
+ break;
+ /* TBD Done*/
+ }
+ prev=p;
+ p=p->next;
+ }
+ write_all_entries(base);
+ free_entries(base);
+ return deleted;
 }
