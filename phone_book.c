@@ -228,21 +228,21 @@ int delete(FILE *db_file, char *name) {
  entry *del = NULL ; /* Node to be deleted */
  int deleted = 0;
  while (p!=NULL) {
- if (strcmp(p->name, name) == 0) {
- if(p==base){
- base=p->next;
- free(p);
- deleted++;
- break;
- }
- prev->next=p->next;
- free(p) ;
- deleted++;
- break;
- /* TBD Done*/
- }
- prev=p;
- p=p->next;
+  if (strcmp(p->name, name) == 0) {
+   if(p==base){
+    base=p->next;
+    free(p);
+    deleted++;
+    break;
+   }
+   prev->next=p->next;
+   free(p) ;
+   deleted++;
+   break;
+   /* TBD Done*/
+  }
+  prev=p;
+  p=p->next;
  }
  write_all_entries(base);
  free_entries(base);
