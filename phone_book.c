@@ -64,7 +64,6 @@ int main(int argc, char *argv[]) {
  exit(0);
  } 
 
- 
  else if (strcmp(argv[1], "search") == 0) { 
  if (argc != 3) {
  print_usage("Improper arguments for search", argv[0]);
@@ -80,9 +79,7 @@ int main(int argc, char *argv[]) {
  fclose(fp);
  exit(0);
  /* TBD */
- 
  } 
- 
  
  else if (strcmp(argv[1], "delete") == 0) { /* Handle delete */
  if (argc != 3) {
@@ -103,7 +100,6 @@ int main(int argc, char *argv[]) {
  exit(1);
  }
 }
-
 
 FILE *open_db_file() {
  FILE *fp=fopen(DB, "r");
@@ -191,7 +187,6 @@ void write_all_entries(entry * p) {
  fclose(fp);
 }
 
-
 void add(char *name, char *phone) {
  FILE *fp = fopen(DB, "a");
  fprintf(fp, "%s,%s\n", name, phone);
@@ -224,7 +219,6 @@ int search(FILE *db_file, char *name)
  free_entries(base);
  return num;
 }
-
 
 int delete(FILE *db_file, char *name) {
  entry *p = load_entries(db_file);
