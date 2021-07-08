@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<assert.h>
 
 const char *DB="directory.db";
 
@@ -65,6 +64,7 @@ int main(int argc, char *argv[]) {
  exit(0);
  } 
 
+ 
  else if (strcmp(argv[1], "search") == 0) { 
  if (argc != 3) {
  print_usage("Improper arguments for search", argv[0]);
@@ -80,7 +80,9 @@ int main(int argc, char *argv[]) {
  fclose(fp);
  exit(0);
  /* TBD */
+ 
  } 
+ 
  
  else if (strcmp(argv[1], "delete") == 0) { /* Handle delete */
  if (argc != 3) {
@@ -101,6 +103,7 @@ int main(int argc, char *argv[]) {
  exit(1);
  }
 }
+
 
 FILE *open_db_file() {
  FILE *fp=fopen(DB, "r");
@@ -188,6 +191,7 @@ void write_all_entries(entry * p) {
  fclose(fp);
 }
 
+
 void add(char *name, char *phone) {
  FILE *fp = fopen(DB, "a");
  fprintf(fp, "%s,%s\n", name, phone);
@@ -199,9 +203,9 @@ void list(FILE *db_file) {
  entry *base = p; 
  int cnt=0;
  while (p!=NULL) {
-  printf("%-20s : %10s\n", p->name, p->phone);
-  p=p->next;
-  cnt++;
+ printf("%-20s : %10s\n", p->name, p->phone);
+ p=p->next;
+ cnt++;
  }
  printf("Total entries : %d\n",cnt); /* TBD print total count Done */
  free_entries(base);
@@ -212,15 +216,15 @@ int search(FILE *db_file, char *name)
  entry *p = load_entries(db_file);
  entry *base = p;
  while (p!=NULL) {
-  if (strcmp(p->name, name) == 0){
-   num++;
-   printf("%s\n", p->phone) ; 
-  }
-  p=p->next;
+ if (strcmp(p->name, name) == 0)
+ { num++;
+ printf("%s\n", p->phone) ; }
+ p=p->next;
  }
  free_entries(base);
  return num;
 }
+
 
 int delete(FILE *db_file, char *name) {
  entry *p = load_entries(db_file);
@@ -229,21 +233,21 @@ int delete(FILE *db_file, char *name) {
  entry *del = NULL ; /* Node to be deleted */
  int deleted = 0;
  while (p!=NULL) {
-  if (strcmp(p->name, name) == 0) {
-   if(p==base){
-    base=p->next;
-    free(p);
-    deleted++;
-    break;
-   }
-   prev->next=p->next;
-   free(p) ;
-   deleted++;
-   break;
-   /* TBD Done*/
-  }
-  prev=p;
-  p=p->next;
+ if (strcmp(p->name, name) == 0) {
+ if(p==base){
+ base=p->next;
+ free(p);
+ deleted++;
+ break;
+ }
+ prev->next=p->next;
+ free(p) ;
+ deleted++;
+ break;
+ /* TBD Done*/
+ }
+ prev=p;
+ p=p->next;
  }
  write_all_entries(base);
  free_entries(base);
