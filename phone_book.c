@@ -194,9 +194,9 @@ void list(FILE *db_file) {
  entry *base = p; 
  int cnt=0;
  while (p!=NULL) {
- printf("%-20s : %10s\n", p->name, p->phone);
- p=p->next;
- cnt++;
+ 	printf("%-20s : %10s\n", p->name, p->phone);
+ 	p=p->next;
+ 	cnt++;
  }
  printf("Total entries : %d\n",cnt); /* TBD print total count Done */
  free_entries(base);
@@ -223,21 +223,21 @@ int delete(FILE *db_file, char *name) {
  entry *del = NULL ; /* Node to be deleted */
  int deleted = 0;
  while (p!=NULL) {
- if (strcmp(p->name, name) == 0) {
- if(p==base){
- base=p->next;
- free(p);
- deleted++;
- break;
- }
- prev->next=p->next;
- free(p) ;
- deleted++;
- break;
- /* TBD Done*/
- }
- prev=p;
- p=p->next;
+ 	if (strcmp(p->name, name) == 0) {
+ 		if(p==base){
+ 			base=p->next;
+ 			free(p);
+ 			deleted++;
+ 			break;
+ 		}
+ 		prev->next=p->next;
+ 		free(p) ;
+		deleted++;
+ 		break;
+ 		/* TBD Done*/
+ 	}
+ 	prev=p;
+ 	p=p->next;
  }
  write_all_entries(base);
  free_entries(base);
