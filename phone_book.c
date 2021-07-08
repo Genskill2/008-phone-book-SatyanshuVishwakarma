@@ -199,9 +199,9 @@ void list(FILE *db_file) {
  entry *base = p; 
  int cnt=0;
  while (p!=NULL) {
- printf("%-20s : %10s\n", p->name, p->phone);
- p=p->next;
- cnt++;
+  printf("%-20s : %10s\n", p->name, p->phone);
+  p=p->next;
+  cnt++;
  }
  printf("Total entries : %d\n",cnt); /* TBD print total count Done */
  free_entries(base);
@@ -212,10 +212,11 @@ int search(FILE *db_file, char *name)
  entry *p = load_entries(db_file);
  entry *base = p;
  while (p!=NULL) {
- if (strcmp(p->name, name) == 0)
- { num++;
- printf("%s\n", p->phone) ; }
- p=p->next;
+  if (strcmp(p->name, name) == 0){
+   num++;
+   printf("%s\n", p->phone) ; 
+  }
+  p=p->next;
  }
  free_entries(base);
  return num;
